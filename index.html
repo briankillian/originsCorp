@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Origins Wellness Corporation | Corporate Ecosystem</title>
+    <link rel="stylesheet" href="originsCorp/originsBrand.css">
+    <style>
+        /* Custom styles for homepage */
+        :root {
+            --animation-timing: 0.5s;
+        }
+
+        body {
+            font-family: var(--origins-font-display);
+            background-color: var(--origins-color-surface);
+            color: var(--origins-color-text-primary);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navigation styles */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: var(--origins-z-fixed);
+            transition: background-color 0.3s ease, padding 0.3s ease;
+            padding: 1.5rem 0;
+        }
+
+        .nav-container.scrolled {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--origins-shadow-subtle);
+            padding: 0.8rem 0;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: var(--origins-container-max-width);
+            margin: 0 auto;
+            padding: 0 var(--origins-space-5);
+        }
+
+        .nav-logo {
+            height: 2rem;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-logo:hover {
+            opacity: 0.8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--origins-space-5);
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: var(--origins-font-size-3);
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: width 0.2s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Navigation color when scrolled */
+        .nav-container.scrolled .nav-link {
+            color: var(--origins-color-text-primary);
+        }
+        
+        .nav-container.scrolled .nav-link:hover {
+            color: var(--origins-color-primary);
+        }
+        
+        .nav-container.scrolled .nav-link::after {
+            background-color: var(--origins-color-primary);
+        }
+        
+        /* Mobile navigation color adjustments */
+        .nav-mobile-icon,
+        .nav-mobile-icon::before,
+        .nav-mobile-icon::after {
+            background-color: white;
+        }
+        
+        .nav-container.scrolled .nav-mobile-icon,
+        .nav-container.scrolled .nav-mobile-icon::before,
+        .nav-container.scrolled .nav-mobile-icon::after {
+            background-color: var(--origins-color-text-primary);
+        }
+
+        /* Hero section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #111;
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(43, 97, 77, 0.7));
+            color: #fff;
+            padding: var(--origins-space-7) var(--origins-space-4);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1561983779-5a753763e193?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .hero-logo {
+            width: clamp(200px, 50vw, 400px);
+            margin-bottom: var(--origins-space-6);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tagline {
+            font-size: clamp(var(--origins-font-size-5), 3vw, var(--origins-font-size-7));
+            font-weight: var(--origins-font-weight-light);
+            margin-bottom: var(--origins-space-6);
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards 0.6s;
+            position: relative;
+            z-index: 1;
+            color: rgba(255, 255, 255, 0.95);
+            letter-spacing: 0.5px;
+        }
+
+        .hero-cta {
+            background-color: var(--origins-color-primary);
+            color: white;
+            border: none;
+            padding: var(--origins-space-3) var(--origins-space-5);
+            border-radius: 50px;
+            font-size: var(--origins-font-size-3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards 0.9s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-cta:hover {
+            background-color: var(--origins-color-primary-dark);
+            transform: scale(1.05);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: var(--origins-space-6);
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1s forwards 1.2s;
+            z-index: 1;
+            text-align: center;
+            width: 100%;
+        }
+
+        .hero-scroll-text {
+            font-size: var(--origins-font-size-2);
+            margin-bottom: var(--origins-space-2);
+            opacity: 0.7;
+        }
+
+        .hero-scroll-icon {
+            width: 20px;
+            height: 30px;
+            border: 2px solid white;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .hero-scroll-icon::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            animation: scrollDown 1.5s infinite;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scrollDown {
+            0% {
+                opacity: 1;
+                top: 6px;
+            }
+            100% {
+                opacity: 0;
+                top: 18px;
+            }
+        }
+
+        /* Subsidiary showcase */
+        .subsidiaries {
+            padding: var(--origins-space-10) var(--origins-space-4);
+            background-color: var(--origins-color-surface);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--origins-space-8);
+        }
+
+        .section-title {
+            font-size: var(--origins-font-size-7);
+            font-weight: var(--origins-font-weight-light);
+            margin-bottom: var(--origins-space-3);
+            color: var(--origins-color-text-primary);
+        }
+
+        .section-subtitle {
+            font-size: var(--origins-font-size-4);
+            font-weight: var(--origins-font-weight-regular);
+            color: var(--origins-color-text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .subsidiary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--origins-space-5);
+            max-width: var(--origins-container-max-width);
+            margin: 0 auto;
+        }
+
+        .subsidiary-card {
+            background-color: white;
+            border-radius: var(--origins-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--origins-shadow-low);
+            transition: all 0.3s var(--origins-ease-out);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s var(--origins-ease-out), 
+                        transform 0.6s var(--origins-ease-spring),
+                        box-shadow 0.3s var(--origins-ease-out);
+        }
+        
+        .subsidiary-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .subsidiary-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--origins-shadow-medium);
+        }
+
+        .subsidiary-logo-container {
+            padding: var(--origins-space-6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(43, 97, 77, 0.05);
+            height: 120px;
+        }
+
+        .subsidiary-logo {
+            max-width: 80%;
+            max-height: 80px;
+            transition: transform 0.3s var(--origins-ease-spring);
+        }
+
+        .subsidiary-card:hover .subsidiary-logo {
+            transform: scale(1.05);
+        }
+
+        .subsidiary-content {
+            padding: var(--origins-space-5);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .subsidiary-title {
+            font-size: var(--origins-font-size-5);
+            font-weight: var(--origins-font-weight-medium);
+            margin-bottom: var(--origins-space-3);
+            color: var(--origins-color-text-primary);
+        }
+
+        .subsidiary-description {
+            color: var(--origins-color-text-secondary);
+            margin-bottom: var(--origins-space-4);
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .subsidiary-link {
+            display: inline-block;
+            color: var(--origins-color-primary);
+            text-decoration: none;
+            font-weight: var(--origins-font-weight-medium);
+            position: relative;
+            padding-right: 24px;
+        }
+
+        .subsidiary-link::after {
+            content: '→';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.2s ease;
+        }
+
+        .subsidiary-link:hover::after {
+            transform: translate(5px, -50%);
+        }
+
+        /* Vision section */
+        .vision {
+            padding: var(--origins-space-10) var(--origins-space-4);
+            background-color: #f8f8f8;
+        }
+
+        .vision-container {
+            max-width: var(--origins-container-max-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--origins-space-8);
+            align-items: center;
+        }
+
+        .vision-content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--origins-space-4);
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.8s var(--origins-ease-out), transform 0.8s var(--origins-ease-spring);
+        }
+
+        .vision-title {
+            font-size: var(--origins-font-size-7);
+            font-weight: var(--origins-font-weight-light);
+            color: var(--origins-color-text-primary);
+        }
+
+        .vision-text {
+            font-size: var(--origins-font-size-4);
+            color: var(--origins-color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--origins-space-4);
+        }
+
+        .vision-image {
+            width: 100%;
+            height: auto;
+            border-radius: var(--origins-radius-lg);
+            box-shadow: var(--origins-shadow-medium);
+        }
+
+        .vision-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--origins-space-4);
+            margin-top: var(--origins-space-6);
+        }
+
+        .stat-item {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s var(--origins-ease-out), transform 0.5s var(--origins-ease-spring);
+        }
+
+        .stat-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-number {
+            font-size: var(--origins-font-size-7);
+            font-weight: var(--origins-font-weight-bold);
+            color: var(--origins-color-primary);
+            margin-bottom: var(--origins-space-2);
+        }
+
+        .stat-label {
+            font-size: var(--origins-font-size-3);
+            color: var(--origins-color-text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111;
+            color: white;
+            padding: var(--origins-space-8) var(--origins-space-4) var(--origins-space-4);
+        }
+
+        .footer-container {
+            max-width: var(--origins-container-max-width);
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--origins-space-6);
+            margin-bottom: var(--origins-space-7);
+        }
+
+        .footer-logo {
+            width: 180px;
+            margin-bottom: var(--origins-space-4);
+        }
+
+        .footer-description {
+            opacity: 0.7;
+            margin-bottom: var(--origins-space-4);
+            max-width: 400px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--origins-space-3);
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: background-color 0.2s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--origins-color-primary);
+        }
+
+        .social-icon {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .footer-column-title {
+            font-size: var(--origins-font-size-4);
+            font-weight: var(--origins-font-weight-medium);
+            margin-bottom: var(--origins-space-4);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-link {
+            margin-bottom: var(--origins-space-3);
+        }
+
+        .footer-link a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link a:hover {
+            color: white;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-bottom: var(--origins-space-4);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--origins-font-size-2);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: var(--origins-space-4);
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-legal a:hover {
+            color: white;
+        }
+
+        /* Media queries */
+        @media (max-width: 1024px) {
+            .vision-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: var(--origins-space-6) var(--origins-space-4);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-logo {
+                width: 80%;
+            }
+
+            .hero-tagline {
+                font-size: var(--origins-font-size-5);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: var(--origins-space-4);
+                text-align: center;
+            }
+
+            .footer-legal {
+                flex-direction: column;
+                gap: var(--origins-space-3);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .vision-stats {
+                grid-template-columns: 1fr;
+                gap: var(--origins-space-5);
+            }
+        }
+
+        /* Mobile navigation */
+        .nav-mobile-button {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .nav-mobile-icon,
+        .nav-mobile-icon::before,
+        .nav-mobile-icon::after {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: white;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .nav-mobile-icon::before,
+        .nav-mobile-icon::after {
+            content: '';
+            position: absolute;
+        }
+
+        .nav-mobile-icon::before {
+            top: -8px;
+        }
+
+        .nav-mobile-icon::after {
+            top: 8px;
+        }
+
+        .nav-mobile-button.active .nav-mobile-icon {
+            background-color: transparent;
+        }
+
+        .nav-mobile-button.active .nav-mobile-icon::before {
+            transform: rotate(45deg) translate(5px, 5px);
+            background-color: white;
+        }
+
+        .nav-mobile-button.active .nav-mobile-icon::after {
+            transform: rotate(-45deg) translate(7px, -7px);
+            background-color: white;
+        }
+
+        .nav-mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: white;
+            padding: 6rem 2rem 2rem;
+            z-index: 1000;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .nav-mobile-links {
+            display: flex;
+            flex-direction: column;
+            gap: var(--origins-space-5);
+        }
+
+        .nav-mobile-link {
+            color: var(--origins-color-text-primary);
+            text-decoration: none;
+            font-size: var(--origins-font-size-5);
+            padding: var(--origins-space-3) 0;
+            border-bottom: 1px solid var(--origins-color-border-light);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-mobile-button {
+                display: block;
+            }
+
+            .nav-mobile-menu {
+                display: block;
+            }
+        }
+
+        /* Vision section animations */
+        .vision-content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--origins-space-4);
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.8s var(--origins-ease-out), transform 0.8s var(--origins-ease-spring);
+        }
+        
+        .vision-image-container {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.8s var(--origins-ease-out), transform 0.8s var(--origins-ease-spring);
+        }
+        
+        .vision-content.animate, .vision-image-container.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .stat-item {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s var(--origins-ease-out), transform 0.5s var(--origins-ease-spring);
+        }
+        
+        .stat-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Improved focus styles for accessibility */
+        a:focus, button:focus {
+            outline: 3px solid var(--origins-color-primary-light);
+            outline-offset: 2px;
+        }
+        
+        /* Skip to content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--origins-color-primary);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Accessibility skip link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Navigation -->
+    <nav class="nav-container" aria-label="Main Navigation">
+        <div class="nav-content">
+            <a href="#" aria-label="Origins Wellness Corporation Home">
+                <img src="originsCorp/assets/owcLogos/originsWellness_White.svg" alt="Origins Wellness Corporation" class="nav-logo nav-logo-dark">
+                <img src="originsCorp/assets/owcLogos/originsWellnessDark.svg" alt="Origins Wellness Corporation" class="nav-logo nav-logo-light" style="display: none;">
+            </a>
+            <div class="nav-links">
+                <a href="#subsidiaries" class="nav-link">Our Brands</a>
+                <a href="#vision" class="nav-link">Corporate Vision</a>
+                <a href="#" class="nav-link">Leadership</a>
+
+            </div>
+            <button class="nav-mobile-button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+                <span class="nav-mobile-icon"></span>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="nav-mobile-menu" id="mobile-menu" aria-hidden="true">
+            <div class="nav-mobile-links">
+                <a href="#subsidiaries" class="nav-mobile-link">Our Brands</a>
+                <a href="#vision" class="nav-mobile-link">Corporate Vision</a>
+                <a href="#" class="nav-mobile-link">Leadership</a>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" aria-labelledby="hero-title">
+        <img src="originsCorp/assets/owcLogos/originsWellness_White.svg" alt="Origins Wellness Corporation" class="hero-logo">
+        <h1 id="hero-title" class="hero-tagline">A holistic ecosystem of wellness enterprises, we are dedicated to advancing healthcare innovation through specialized experience and integrated solutions.</h1>
+        <button class="hero-cta" aria-label="Discover Our Ecosystem">Discover Our Ecosystem</button>
+        <div class="hero-scroll" aria-hidden="true">
+            <div class="hero-scroll-text">Scroll to explore</div>
+            <div class="hero-scroll-icon"></div>
+        </div>
+    </section>
+
+    <!-- Subsidiary Showcase -->
+    <section id="subsidiaries" class="subsidiaries" aria-labelledby="subsidiaries-title">
+        <div class="section-header">
+            <h2 id="subsidiaries-title" class="section-title">Our Specialized Brands</h2>
+            <p class="section-subtitle">Strategic wellness enterprises united under a shared vision of innovation and excellence</p>
+        </div>
+        <div class="subsidiary-grid" id="main-content">
+            <!-- Origins Clinical -->
+            <div class="subsidiary-card">
+                <div class="subsidiary-logo-container">
+                    <img src="originsCorp/assets/owcLogos/OriginsClinicalDark.svg" alt="Origins Clinical" class="subsidiary-logo">
+                </div>
+                <div class="subsidiary-content">
+                    <h3 class="subsidiary-title">Origins Clinical Systems</h3>
+                    <p class="subsidiary-description">Comprehensive chiropractic and physical therapy platforms, providing advanced technology and wholly compliant electronic health records systems.</p>
+                    <a href="#" class="subsidiary-link" aria-label="Explore partnership opportunities with Origins Clinical">Explore partnership opportunities</a>
+                </div>
+            </div>
+            
+            <!-- Origins Consulting -->
+            <div class="subsidiary-card">
+                <div class="subsidiary-logo-container">
+                    <img src="originsCorp/assets/owcLogos/originsConsultingDark.svg" alt="Origins Consulting" class="subsidiary-logo">
+                </div>
+                <div class="subsidiary-content">
+                    <h3 class="subsidiary-title">Origins Consulting</h3>
+                    <p class="subsidiary-description">Strategic advisory services for healthcare organizations, providing industry-leading insights, operational excellence frameworks, and transformative solutions.</p>
+                    <a href="#" class="subsidiary-link" aria-label="Discover services offered by Origins Consulting">Discover our services</a>
+                </div>
+            </div>
+            
+            <!-- Origins Products -->
+            <div class="subsidiary-card">
+                <div class="subsidiary-logo-container">
+                    <img src="originsCorp/assets/owcLogos/originsProductsDark.svg" alt="Origins Products" class="subsidiary-logo">
+                </div>
+                <div class="subsidiary-content">
+                    <h3 class="subsidiary-title">Origins Wellness Products</h3>
+                    <p class="subsidiary-description">Innovative wellness products utilizing cutting-edge formulations and evidence-based design, creating market-leading solutions for wholesale and distribution channels.</p>
+                    <a href="#" class="subsidiary-link" aria-label="View product catalog for Origins Products">View product catalog</a>
+                </div>
+            </div>
+            
+            <!-- Origins Management -->
+            <div class="subsidiary-card">
+                <div class="subsidiary-logo-container">
+                    <img src="originsCorp/assets/owcLogos/originsManagementDark.svg" alt="Origins Management" class="subsidiary-logo">
+                </div>
+                <div class="subsidiary-content">
+                    <h3 class="subsidiary-title">Origins Management Services</h3>
+                    <p class="subsidiary-description">Comprehensive practice management solutions delivering operational excellence, compliance frameworks, and growth strategies for healthcare enterprises.</p>
+                    <a href="#" class="subsidiary-link" aria-label="Explore management solutions for Origins Management">Explore management solutions</a>
+                </div>
+            </div>
+            
+            <!-- Origins At Work -->
+            <div class="subsidiary-card">
+                <div class="subsidiary-logo-container">
+                    <img src="originsCorp/assets/owcLogos/originsAtWorkDark.svg" alt="Origins At Work" class="subsidiary-logo">
+                </div>
+                <div class="subsidiary-content">
+                    <h3 class="subsidiary-title">Origins At Work</h3>
+                    <p class="subsidiary-description">Corporate wellness programs and enterprise health solutions designed to optimize workforce performance, reduce healthcare costs, and enhance organizational wellbeing.</p>
+                    <a href="#" class="subsidiary-link" aria-label="Discover enterprise solutions for Origins At Work">Discover enterprise solutions</a>
+                </div>
+            </div>
+            
+            <!-- Origins Design Co -->
+            <div class="subsidiary-card">
+                <div class="subsidiary-logo-container">
+                    <img src="originsCorp/assets/owcLogos/originsDesignCoDark.svg" alt="Origins Design Co" class="subsidiary-logo">
+                </div>
+                <div class="subsidiary-content">
+                    <h3 class="subsidiary-title">Origins Design Co</h3>
+                    <p class="subsidiary-description">Specialized design services for healthcare environments, creating innovative, human-centered spaces that enhance operational efficiency and therapeutic outcomes.</p>
+                    <a href="#" class="subsidiary-link" aria-label="View portfolio for Origins Design Co">View our portfolio</a>
+                </div>
+            </div>
+            
+            <!-- Origins Performand -->
+            <div class="subsidiary-card">
+                <div class="subsidiary-logo-container">
+                    <img src="originsCorp/assets/owcLogos/originsPerformandDark.svg" alt="Origins Performand" class="subsidiary-logo">
+                </div>
+                <div class="subsidiary-content">
+                    <h3 class="subsidiary-title">Origins Performance Lab</h3>
+                    <p class="subsidiary-description">Performance optimization technologies and methodologies for athletes and active professionals, leveraging advanced research and proprietary assessment systems.</p>
+                    <a href="#" class="subsidiary-link" aria-label="Explore performance solutions for Origins Performand">Explore performance solutions</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section id="vision" class="vision">
+        <div class="vision-container">
+            <div class="vision-content">
+                <h2 class="vision-title">Our Corporate Vision</h2>
+                <p class="vision-text">Origins Wellness Corporation represents a strategic ecosystem of specialized wellness enterprises, each contributing unique expertise to our integrated approach to healthcare innovation and market leadership.</p>
+                <p class="vision-text">Our structure enables powerful synergies, allowing each subsidiary to maintain focused excellence while benefiting from shared resources, cross-disciplinary innovation, and amplified market presence.</p>
+                <div class="vision-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">7+</div>
+                        <div class="stat-label">Specialized Brands</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Years of Excellence</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Enterprise Partners</div>
+                    </div>
+                </div>
+            </div>
+            <div class="vision-image-container">
+                <img src="https://images.unsplash.com/photo-1497215842964-222b430dc094?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Origins Wellness Corporation Headquarters" class="vision-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="originsCorp/assets/owcLogos/originsWellness_White.svg" alt="Origins Wellness Corporation" class="footer-logo">
+                    <p class="footer-description">A holistic ecosystem of wellness enterprises advancing healthcare innovation through specialized expertise and integrated solutions.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-column-title">Corporate</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">About Us</a></li>
+                        <li class="footer-link"><a href="#">Leadership Team</a></li>
+                        <li class="footer-link"><a href="#">Investor Relations</a></li>
+                        <li class="footer-link"><a href="#">Corporate Governance</a></li>
+                        <li class="footer-link"><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-column-title">Business</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Partnership Inquiries</a></li>
+                        <li class="footer-link"><a href="#">Distribution</a></li>
+                        <li class="footer-link"><a href="#">Wholesale</a></li>
+                        <li class="footer-link"><a href="#">Enterprise Solutions</a></li>
+                        <li class="footer-link"><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-column-title">Contact</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Business Development</a></li>
+                        <li class="footer-link"><a href="#">Media Inquiries</a></li>
+                        <li class="footer-link"><a href="#">Investor Relations</a></li>
+                        <li class="footer-link"><a href="#">Headquarters</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">© 2023 Origins Wellness Corporation. All rights reserved.</div>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation bar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav-container');
+            const logoDark = document.querySelector('.nav-logo-dark');
+            const logoLight = document.querySelector('.nav-logo-light');
+            
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+                logoDark.style.display = 'none';
+                logoLight.style.display = 'block';
+            } else {
+                nav.classList.remove('scrolled');
+                logoDark.style.display = 'block';
+                logoLight.style.display = 'none';
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Hero CTA button scroll to subsidiaries
+        document.querySelector('.hero-cta').addEventListener('click', function() {
+            const subsidiariesSection = document.getElementById('subsidiaries');
+            window.scrollTo({
+                top: subsidiariesSection.offsetTop - 80,
+                behavior: 'smooth'
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.nav-mobile-button');
+        const mobileMenu = document.querySelector('.nav-mobile-menu');
+        const mobileLinks = document.querySelectorAll('.nav-mobile-link');
+
+        mobileMenuButton.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenuButton.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Intersection Observer for animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Subsidiary cards animation
+            const cards = document.querySelectorAll('.subsidiary-card');
+            
+            const cardObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Add staggered delay based on the card's position
+                        setTimeout(() => {
+                            entry.target.classList.add('animate');
+                        }, index * 150);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            cards.forEach(card => {
+                cardObserver.observe(card);
+            });
+            
+            // Vision section animations
+            const visionContent = document.querySelector('.vision-content');
+            const visionImage = document.querySelector('.vision-image-container');
+            const statItems = document.querySelectorAll('.stat-item');
+            
+            const visionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        observer.unobserve(entry.target);
+                        
+                        // If this is the vision content, animate the stats with delay
+                        if (entry.target === visionContent) {
+                            statItems.forEach((stat, index) => {
+                                setTimeout(() => {
+                                    stat.classList.add('animate');
+                                }, 800 + (index * 200));
+                            });
+                        }
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            visionObserver.observe(visionContent);
+            visionObserver.observe(visionImage);
+        });
+    </script>
+</body>
+</html>
